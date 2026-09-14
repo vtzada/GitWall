@@ -1,4 +1,4 @@
-use chrono::{Datelike, NaiveDate, Utc};
+use chrono::Utc;
 use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, USER_AGENT};
 
 use super::errors::GithubError;
@@ -11,21 +11,14 @@ const GITHUB_GRAPHQL: &str = "https://api.github.com/graphql";
 
 pub async fn fetch_contributions(
     username: &str,
-    year: i32,
+    _year: i32,          // ignorado por enquanto
     token: &str,
 ) -> Result<ContributionPayload, GithubError> {
-    // Range: 1 ano a partir de Jan 1 do ano alvo.
-    // O GitHub aceita DateTime ISO 8601.
-    let from = NaiveDate::from_ymd_opt(year, 1, 1)
-        .ok_or_else(|| GithubError::Api("invalid year".into()))?
-        .and_hms_opt(0, 0, 0)
-        .unwrap()
-        .and_utc();
-    let to = NaiveDate::from_ymd_opt(year, 12, 31)
-        .ok_or_else(|| GithubError::Api("invalid year".into()))?
-        .and_hms_opt(23, 59, 59)
-        .unwrap()
-        .and_utc();
+    let today = Utc::now().date_naive();
+    let from_date = today - chrono::Duration::days(365);
+
+    let from = from_date.and_hms_opt(0, 0, 0).unwrap().and_utc();
+    let to = today.and_hms_opt(23, 59, 59).unwrap().and_utc();
 
     let body = serde_json::json!({
         "query": CONTRIBUTIONS_QUERY,

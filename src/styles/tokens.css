@@ -1,0 +1,38 @@
+@theme {
+  --color-bg: #0a0d12;
+  --color-bg-elevated: #0f1319;
+
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #5c6570;
+
+  /* Accent — âmbar quente, o único */
+  --color-accent: #e3a857;
+  --color-accent-dim: #8b6a3f;
+
+  /* Heatmap — slate-blue → cyan suave */
+  --color-heat-0: #141a22;
+  --color-heat-1: #1e3a4c;
+  --color-heat-2: #2d5f7a;
+  --color-heat-3: #3e8da8;
+  --color-heat-4: #5cc8d4;
+
+  --color-hairline: #1f262e;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 400ms ease-out both;
+}

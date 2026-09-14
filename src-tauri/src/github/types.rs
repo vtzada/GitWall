@@ -9,6 +9,7 @@ pub struct GqlResponse<T> {
 #[derive(Debug, Deserialize)]
 pub struct GqlError {
     pub message: String,
+    #[allow(dead_code)]
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub kind: Option<String>,
 }
@@ -56,21 +57,21 @@ pub struct ContributionDayRaw {
     pub contribution_level: String, // "NONE" | "FIRST_QUARTILE" | ...
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ContributionPayload {
     pub user: UserProfile,
     pub days: Vec<ContributionDayDto>,
     pub total: u32,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserProfile {
     pub login: String,
     pub name: Option<String>,
     pub avatar_url: String,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ContributionDayDto {
     pub date: String,
     pub count: u32,
