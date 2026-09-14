@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
-import type { BackgroundType } from "@/features/settings/preferences";
+import type { BackgroundType, BackgroundPosition } from "@/features/settings/preferences";
+import { POSITION_CLASSES } from "@/features/settings/preferences";
 
 interface ScreenProps {
   children: ReactNode;
   backgroundType?: BackgroundType;
+  backgroundPosition?: BackgroundPosition;
   backgroundImage?: string | null;
   backgroundOverlay?: number;
   backgroundBlur?: number;
@@ -12,12 +14,14 @@ interface ScreenProps {
 export function Screen({
   children,
   backgroundType = "solid",
+  backgroundPosition = "top-left",
   backgroundImage,
   backgroundOverlay = 0.65,
   backgroundBlur = 0,
 }: ScreenProps) {
   const showImage = backgroundType === "image" && backgroundImage;
   const showTranslucent = backgroundType === "translucent";
+  const positionClasses = POSITION_CLASSES[backgroundPosition];
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-bg">
@@ -56,9 +60,9 @@ export function Screen({
         />
       )}
 
-      {/* Conteúdo do Dashboard */}
-      <div className="relative z-10 absolute bottom-0 left-0 w-full pl-[clamp(3.5rem,6vmin,6rem)] pr-[clamp(2.5rem,5vmin,5rem)] pb-[clamp(6.5rem,11vmin,9rem)] pt-[clamp(2.5rem,5vmin,5rem)]">
-        <div className="max-w-[min(92vw,1500px)]">{children}</div>
+      {/* Conteúdo do Dashboard — posicionado via flexbox */}
+      <div className={`relative z-10 h-full w-full flex flex-col p-[clamp(2.5rem,5vmin,5rem)] ${positionClasses}`}>
+        <div className="max-w-[min(94vw,1800px)]">{children}</div>
       </div>
     </div>
   );

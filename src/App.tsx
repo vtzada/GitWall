@@ -216,6 +216,7 @@ function App() {
 
       <Screen
         backgroundType={preferences.backgroundType}
+        backgroundPosition={preferences.backgroundPosition}
         backgroundImage={preferences.backgroundImage}
         backgroundOverlay={preferences.backgroundOverlay}
         backgroundBlur={preferences.backgroundBlur}

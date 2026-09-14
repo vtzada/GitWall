@@ -17,10 +17,10 @@ export function StatsFooter({
     : null;
 
   return (
-    <footer className="flex animate-fade-in flex-col gap-[clamp(1rem,2vmin,1.75rem)]">
+    <footer className="flex animate-fade-in flex-col gap-[clamp(1rem,2.5vmin,2rem)]">
       <div className="h-px w-full bg-hairline" />
 
-      <p className="text-[clamp(0.8rem,1.3vmin,1rem)] text-text-secondary tabular-nums">
+      <p className="text-[clamp(0.9rem,1.6vmin,1.25rem)] text-text-secondary tabular-nums">
         <span className="text-text-primary/90">{total}</span> contribuições no
         último ano, maior sequência de{" "}
         <span className="text-text-primary/90">{longest}</span>{" "}

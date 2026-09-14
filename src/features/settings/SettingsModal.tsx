@@ -6,6 +6,7 @@ import {
   storeCredentials,
 } from "@/tauri/commands";
 import { THEMES, applyTheme, getThemeById } from "./themes";
+import { BACKGROUND_POSITIONS } from "./preferences";
 import type { UserPreferences } from "./preferences";
 
 interface SettingsModalProps {
@@ -303,6 +304,56 @@ export function SettingsModal({
                     {type === "translucent" && "Translúcido"}
                   </button>
                 ))}
+              </div>
+
+              {/* Seletor de posição do background */}
+              <div className="space-y-2">
+                <div>
+                  <h3 className="text-xs font-semibold text-text-primary">
+                    Posição do Conteúdo
+                  </h3>
+                  <p className="text-[11px] text-text-muted">
+                    Onde o conteúdo ficará posicionado na tela.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 gap-1.5 w-fit">
+                  {BACKGROUND_POSITIONS.map((pos) => {
+                    const isSelected = preferences.backgroundPosition === pos.value;
+                    return (
+                      <button
+                        key={pos.value}
+                        type="button"
+                        onClick={() =>
+                          onPreferencesChange({
+                            ...preferences,
+                            backgroundPosition: pos.value,
+                          })
+                        }
+                        title={pos.label}
+                        className={`relative h-10 w-14 rounded border transition-all cursor-pointer ${
+                          isSelected
+                            ? "border-accent bg-accent/15 ring-1 ring-accent"
+                            : "border-hairline bg-[#141a22]/50 hover:border-text-muted hover:bg-[#141a22]"
+                        }`}
+                      >
+                        <div
+                          className={`absolute h-2 w-2 rounded-full transition-colors ${
+                            isSelected ? "bg-accent" : "bg-text-muted/50"
+                          }`}
+                          style={{
+                            top: pos.value.startsWith("top") ? "6px" : pos.value.startsWith("bottom") ? "calc(100% - 14px)" : "calc(50% - 4px)",
+                            left: pos.value.endsWith("left") ? "6px" : pos.value.endsWith("right") ? "calc(100% - 14px)" : "calc(50% - 4px)",
+                          }}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <p className="text-[10px] text-text-muted">
+                  {BACKGROUND_POSITIONS.find((p) => p.value === preferences.backgroundPosition)?.label}
+                </p>
               </div>
 
               {/* Modo Sólido */}

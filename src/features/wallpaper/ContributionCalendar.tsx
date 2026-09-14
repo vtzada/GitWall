@@ -114,19 +114,19 @@ export function ContributionCalendar({
 
   return (
     <div
-      className="flex w-full animate-fade-in flex-col gap-3"
+      className="flex w-full animate-fade-in flex-col gap-4"
       role="region"
       aria-label={`Calendário de contribuições de ${year}`}
     >
-      <div className="flex w-full flex-col gap-[3px]">
+      <div className="flex w-full flex-col gap-[4px]">
         {/* Rótulos de mês */}
-        <div className="flex gap-[3px]">
+        <div className="flex gap-[4px]">
           {weeks.map((_, wi) => {
             const label = monthLabels.find((m) => m.column === wi);
             return (
               <div
                 key={wi}
-                className="flex-1 text-[10px] leading-none text-text-muted"
+                className="flex-1 text-[11px] leading-none text-text-muted"
               >
                 {label?.label ?? ""}
               </div>
@@ -135,9 +135,9 @@ export function ContributionCalendar({
         </div>
 
         {/* Grid de células */}
-        <div className="flex gap-[3px]">
+        <div className="flex gap-[4px]">
           {weeks.map((week, wi) => (
-            <div key={wi} className="flex flex-1 flex-col gap-[3px]">
+            <div key={wi} className="flex flex-1 flex-col gap-[4px]">
               {week.days.map((day, di) => (
                 <div
                   key={di}
@@ -149,7 +149,7 @@ export function ContributionCalendar({
                       : undefined
                   }
                   className={[
-                    "aspect-square w-full flex-none rounded-sm transition-transform hover:scale-125",
+                    "aspect-square w-full min-w-[min(1.6vmin,14px)] min-h-[min(1.6vmin,14px)] flex-none rounded-[3px] transition-transform hover:scale-125",
                     day ? `${LEVEL_CLASSES[day.level]} cursor-pointer` : "bg-transparent",
                   ].join(" ")}
                 />
